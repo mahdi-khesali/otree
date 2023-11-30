@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+    <h3 class="card-title font-weight-bold"> Auszahlungsinformation </h3>
+
+       <br>
+
+<p>Für das Experiment wurde Ihnen die Rolle <b>{{player.player_role}}</b> zugewiesen.<br></p>
+
+<p>Am Anfang haben Sie <b>10</b> Punkten von uns erhalten.<br></p>
+
+{% if player.player_role == "A" %}
+<p>Ihrem Partner haben Sie <b>{{stolen_amount}}</b> Punkte abgenommen. Sie beenden das Experiment mit <b>{{player.player_points}}</b> Punkten.</p>
+{% endif %}
+{% if player.player_role == "B" %}
+<p>Ihr Partner hat Ihnen <b>{{stolen_amount}}</b>  Punkte abgezogen. Sie beendest das Experiment mit <b>{{player.player_points}}</b> Punkten.</p>
+{% endif %}
+
+<p> Sie erhalten zusätzlich zu den <b>5 Euro</b> Aufwandsentschädigung <b>{{player.final_payoff_euros}} Euro</b>.
+    Ihre Bezahlung erhalten Sie innerhalb der nächsten 10 Tage.
+    </p>
+
+<p></p>
+    {% next_button %}
+{% endblock %}
+
+

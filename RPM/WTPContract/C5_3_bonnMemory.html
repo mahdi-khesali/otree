@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <h3 class="card-title font-weight-bold"> EINLEITUNG</h3>
+<p>Please tell us a nice memory that you had at the university of Bonn.</p>
+
+{% formfield player.memoryUni %}
+
+
+
+    {% next_button %}
+
+
+
+{% endblock %}

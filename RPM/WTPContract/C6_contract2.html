@@ -1,0 +1,337 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'back_button_v1/js/prev_next_button.js' %}"></script>
+
+{% endblock %}
+
+
+{% block styles %}
+
+<link href="{% static 'back_button_v1/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+
+{% block content %}
+<!-- Tab navigation -->
+<ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
+
+
+    <li class="nav-item">
+        <a class="nav-link active" id="part0-tab" data-bs-toggle="tab" href="#part0" role="tab" aria-controls="part0"
+           onclick="topFunction()">CONTRACT 2</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" id="part1-tab" data-bs-toggle="tab" href="#part1" role="tab" aria-controls="part1"
+           onclick="topFunction()">EINLEITUNG</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="part2-tab" data-bs-toggle="tab" href="#part2" role="tab" aria-controls="part2"
+           onclick="topFunction()">HAUPTENTSCHEIDUNG</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="part3-tab" data-bs-toggle="tab" href="#part3" role="tab" aria-controls="part3"
+           onclick="topFunction()">MECHANISMUS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="part4-tab" data-bs-toggle="tab" href="#part4" role="tab" aria-controls="part4"
+           onclick="topFunction()">CONTRATS</a>
+    </li>
+      <li class="nav-item">
+        <a class="nav-link" id="part5-tab" data-bs-toggle="tab" href="#part5" role="tab" aria-controls="part5"
+           onclick="topFunction()">EXAMPLES</a>
+    </li>
+
+
+
+</ul>
+<br>
+<br>
+
+
+<!-- Tab content -->
+<div class="tab-content" id="myTabContent">
+
+
+    <div class="tab-pane show active" id="part0" role="tabpanel" aria-labelledby="part0-tab">
+
+
+       <div class="card-header bg-transparent mainheader">
+           <h3 class="card-title font-weight-bold"> CONTRAT 2</h3>
+       </div>
+       <br>
+
+           <div id="img-container">
+            <img src="../global/mugIdentity_5.jpg" id="main-img" alt="Colorful Mug" width="300">
+          </div>
+
+          <div>
+            <button onclick="previousImage()">Previous</button>
+            <button onclick="nextImage()">Next</button>
+          </div>
+
+
+        {% if player.treatment_type == 'conventional' %}
+        <script src="../_static/back_button_v1/js/contractConventional.js"></script>
+        {% elif player.treatment_type == 'identity' %}
+        <script src="../_static/back_button_v1/js/contractIdentity.js"></script>
+        {% endif %}
+
+
+
+
+        <p>The type of contract is {{player.contract2Type}}</p>
+        <!-- Your template.html -->
+        <label for="wtp_slider">Willingness to Pay: <span id="wtp_value">2.50</span></label>
+        <input type="range" name="WTP_contract2" id="wtp_slider" min="0.01" max="5" step="0.01" value="2.50" oninput="updateWTPDisplay(value);">
+        <script>
+            function updateWTPDisplay(value) {
+                document.getElementById('wtp_value').innerText = parseFloat(value).toFixed(2);
+            }
+        </script>
+
+
+
+
+
+
+       <button type="submit" class="btn-primary btn next">Ok</button>
+
+    </div>
+
+
+
+
+
+       <!--##################################### -->
+       <!--#########  Tabs  #################### -->
+       <!--##################################### -->
+
+
+
+    <div class="tab-pane" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+
+
+               <div class="card-header bg-transparent mainheader">
+                       <h3 class="card-title font-weight-bold"> EINLEITUNG</h3>
+               </div>
+        <p>Thank you for taking the time to participate in this study.</p>
+
+        <p>
+            Please give this study your full attention. You will have a limited amount of time to complete it.
+        </p>
+
+        <p>In this study you can earn money and close a contract to purchase a mug at a cheap price. Your earnings and whether you
+            receive the mug depend on your decisions during the study. </p>
+
+
+
+        <p>
+            You receive your payment and potentially the Mug that you buy at the end of the study.
+            Therefore, please remain seated quietly at the end of experiment until the experimenter brings your payment and
+            potentially your Mug.
+        </p>
+        <p>
+        If you have any questions during the study, please raise your hand and wait for an experimenter to come to you.
+            Please do not talk, exclaim, or try to communicate with other participants during the experiment.
+            Participants intentionally violating the rules may be asked to leave the experiment and may not be paid.
+        </p>
+    </div>
+
+
+    <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+
+
+               <div class="card-header bg-transparent mainheader">
+                   <h3 class="card-title font-weight-bold"> HAUPTENTSCHEIDUNG </h3>
+               </div>
+               <br>
+
+         <p>In dieser Studie erhalten Sie 12,50 Euro, von denen Sie bis zu 5 Euro für den Kauf eines Bechers ausgeben können.
+          Um den Becher zu kaufen, schließen Sie einen Vertrag mit einem Geschäft ab, das den Becher verkauft.
+          Es gibt zwei Arten von Verträgen. Sie entscheiden, wie viele Euro von den 5 Euro Sie bereit sind,
+          für jeden Vertragstyp zu zahlen, um den Becher zu kaufen. Die zwei Vertragstypen sind:</p>
+
+        <ol type="a">
+          <li>Ein Vertrag mit einer Klausel, dass das Geschäft verpflichtet ist, den Durchschnittspreis des Bechers zu zahlen,
+            falls ein geliefertes Produkt nicht der Beschreibung entspricht oder das Geschäft gar nicht liefert.</li>
+          <li>Ein Vertrag mit einer Klausel, dass das Geschäft verpflichtet ist, ein Ersatzprodukt mit der genauen
+            Beschreibung, die Sie wünschen, zu liefern, falls ein geliefertes Produkt nicht der Beschreibung entspricht oder das
+            Geschäft gar nicht liefert.</li>
+        </ol>
+
+        <p>Die Verträge unterscheiden sich hinsichtlich der Entschädigung, falls das Geschäft seine Pflicht nicht vollständig erfüllt.
+          Es besteht eine 25\% Wahrscheinlichkeit, dass das Geschäft seine Pflicht nicht erfüllt, indem es einen Becher liefert,
+          dessen eine oder mehrere Eigenschaften von dem abweichen, was Sie auf seinen Fotos sehen, oder es versäumt, den Becher zu liefern.</p>
+    </div>
+
+
+
+    <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+
+
+        <div class="card-header bg-transparent mainheader">
+                   <h3 class="card-title font-weight-bold"> MECHANISM </h3>
+               </div>
+               <br>
+
+        <p>Der potenzielle Abschluss des Kaufvertrags für einen Becher erfolgt nachfolgendem Mechanismus:</p>
+
+        <ol>
+          <li>Es gibt zwei Arten von Verträgen, nach denen die Becher verkauft werden. Einer der beiden kann zufällig ausgewählt werden.
+              Sie können nicht beeinflussen, welcher Vertragstyp verwendet wird.</li>
+          <li>Bitte geben Sie Ihre maximale Zahlungsbereitschaft für jeden Vertragstyp an.
+              Ihre Zahlungsbereitschaft muss zwischen 0 Euro und 5 Euro liegen und Sie können jeden Betrag in 50 Cent in diesem Intervall wählen.</li>
+          <li>Der Preis des Bechers wird zufällig festgelegt. Dieser Preis ist für alle Teilnehmer gleich und
+              unabhängig vom Vertragstyp. Der Preis kann zwischen 0 Euro und 5 Euro liegen und jeder Betrag in 50 Cent ist
+              gleich wahrscheinlich.</li>
+            <li>Einer der Verträge wird zufällig ausgewählt, um zahlungswirksam zu sein, und Sie erfahren erst nach
+                Ihren Entscheidungen, welcher es ist. Beide Vertragstypen haben die gleiche Chance, ausgewählt zu werden.
+                Somit erhalten Sie höchstens einen Becher. Der gleiche Vertragstyp ist für alle Teilnehmer zahlungswirksam.</li>
+            <li>Wenn Ihre angegebene maximale Zahlungsbereitschaft für den ausgewählten Vertrag mindestens so hoch ist wie der
+                zufällig ermittelte Preis, kommt ein Vertrag mit dem Geschäft zustande, Sie können einen Becher erhalten und
+                der Preis wird von den 12,50 Euro, mit denen Sie ausgestattet wurden, abgezogen. Wenn Ihre angegebene maximale
+                Zahlungsbereitschaft niedriger ist als der zufällig ermittelte Preis, kommt kein Vertrag zwischen Ihnen und dem
+                Geschäft zustande, erhalten Sie keinen Becher und Sie zahlen nichts, somit behalten Sie Ihre 12,50 Euro.</li>
+        </ol>
+
+        <p>Bitte beachten Sie, dass Sie mit Ihrer angegebenen Zahlungsbereitschaft den Preis des Bechers nicht beeinflussen
+            können, sondern nur, ob Sie den Vertrag abschließen werden. Daher repräsentiert Ihre Zahlungsbereitschaft für
+            jeden Vertragstyp, wie viel Sie höchstens für den jeweiligen Vertrag bezahlen würden.</p>
+
+        </div>
+
+
+    <div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
+
+
+               <div class="card-header bg-transparent mainheader">
+                   <h3 class="card-title font-weight-bold"> CONTRACT  TYPE </h3>
+               </div>
+               <br>
+
+        <ol type="a">
+          <li>Ein Vertrag mit einer Klausel, dass das Geschäft verpflichtet ist, den Durchschnittspreis des Bechers zu zahlen,
+            falls ein geliefertes Produkt nicht der Beschreibung entspricht oder das Geschäft gar nicht liefert.</li>
+          <li>Ein Vertrag mit einer Klausel, dass das Geschäft verpflichtet ist, ein Ersatzprodukt mit der genauen
+            Beschreibung, die Sie wünschen, zu liefern, falls ein geliefertes Produkt nicht der Beschreibung entspricht oder das
+            Geschäft gar nicht liefert.</li>
+        </ol>
+
+    </div>
+
+
+    <div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
+
+
+               <div class="card-header bg-transparent mainheader">
+                   <h3 class="card-title font-weight-bold">EXAMPLES</h3>
+               </div>
+               <br>
+
+        <ol>
+          <li>Anna gibt eine maximale Zahlungsbereitschaft von 2,27 Euro für Vertragstyp A und 3,58 Euro für Vertragstyp B an.
+              Nehmen wir an, der zufällig bestimmte Preis für den Becher ist 2,84 Euro. Wird Vertragstyp A als zahlungswirksam
+              ausgelost, ist Annas angegebene Zahlungsbereitschaft von 2,27 Euro niedriger als der Preis von 2,84 Euro.
+              Daher schließt sie keinen Vertrag mit dem Geschäft ab, erhält keinen Becher und zahlt auch keinen Preis.
+              Ihr Auszahlungsbetrag entspricht ihrer Anfangsausstattung von 12,50 Euro. Wird Vertragstyp B als zahlungswirksam
+              ausgewählt, übersteigt Annas Zahlungsbereitschaft von 3,58 Euro den Preis von 2,84 Euro, sodass der Vertrag mit
+              dem Geschäft zustande kommt. Mit 75\% Wahrscheinlichkeit erhält Anna den Becher und zahlt den Preis von 2,84 Euro.
+              Ihre Auszahlung entspricht der Anfangsausstattung abzüglich des Preises, also 12,50 Euro - 2,84 Euro = 8,66 Euro
+              plus den Becher, den sie gekauft hat. Mit einer Wahrscheinlichkeit von 25\% wird der Becher nicht geliefert oder
+              die Farbe des Bechers weicht von Annas Bestellung ab. Da der Vertrag eine Klausel enthält, die die Lieferung
+              eines Ersatzproduktes mit den genau angegebenen Merkmalen in einem solchen Fall vorsieht, wird Anna dann den
+              Becher in der Farbe erhalten, die sie gekauft hat.</li>
+          <li>Anna gibt eine maximale Zahlungsbereitschaft von 4,36 Euro für Vertragstyp A und 2,19 Euro für Vertragstyp B an.
+              Nehmen wir an, der zufällig bestimmte Preis für den Becher ist 3,51 Euro. Wird Vertragstyp A als zahlungswirksam
+              ausgelost, ist Annas angegebene Zahlungsbereitschaft von 4,36 Euro höher als der Preis von 3,51 Euro.
+              Daher schließt sie den Vertrag mit dem Geschäft ab. Mit 75\% Wahrscheinlichkeit erhält Anna den Becher und zahlt
+              den Preis von 4,36 Euro. Ihre Auszahlung entspricht der Anfangsausstattung abzüglich des Preises, also 12,50
+              Euro - 4,36 Euro = 8,14 Euro plus den Becher, den sie gekauft hat. Mit einer Wahrscheinlichkeit von 25\% wird der
+              Becher nicht geliefert oder die Farbe des Bechers weicht von Annas Bestellung ab. Da der Vertrag eine Klausel
+              enthält, die eine Schadensersatzzahlung vorsieht, erhält sie den Durchschnittspreis des Bechers als Entschädigung.
+              Wird Vertragstyp B als zahlungswirksam ausgewählt, ist Annas angegebene Zahlungsbereitschaft von 2,19 Euro
+              niedriger als der Preis von 3,51 Euro. Daher schließt sie keinen Vertrag mit dem Geschäft ab, erhält keinen
+              Becher und zahlt auch keinen Preis. Ihr Auszahlungsbetrag entspricht ihrer Anfangsausstattung von 12,50 Euro.</li>
+        </ol>
+
+    </div>
+
+
+</div>
+
+
+       <!--##################################### -->
+       <!--#########  CSS CODES  ############### -->
+       <!--##################################### -->
+
+
+
+
+
+<style>
+  #img-container {
+    text-align: center;
+    margin: 20px;
+  }
+  .color-choice {
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    display: inline-block;
+  }
+  .selected {
+    border: 2px solid blue;
+  }
+
+
+
+  /* Increase the width of the slider */
+  #wtp_slider {
+    width: 100%; /* You can adjust this to your preference */
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    height: 15px; /* Make the slider track thicker */
+    background: #ddd; /* Slider track color */
+    outline: none; /* Remove the outline */
+    opacity: 0.7; /* Set transparency (optional) */
+    -webkit-transition: 0.2s; /* Transition for thumb hover effect */
+    transition: opacity 0.2s;
+  }
+
+  /* Style the thumb (the draggable button) */
+  #wtp_slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Width of the thumb */
+    height: 25px; /* Height of the thumb */
+    background: #4CAF50; /* Thumb color */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  #wtp_slider::-moz-range-thumb {
+    width: 25px; /* Width of the thumb */
+    height: 25px; /* Height of the thumb */
+    background: #4CAF50; /* Thumb color */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+</style>
+
+
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+
+{% endblock %}
+
+{% block content %}
+<p>
+    Sie haben drei Aufgaben korrekt gelöst. Ihnen werden 750 Punkte auf Ihrem Konto gutgeschrieben.
+</p><p>
+Bitte klicken Sie auf WEITER, um das Experiment fortzusetzen.
+    </p>
+<br>
+    {% next_button %}
+
+{% endblock %}
