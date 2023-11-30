@@ -6,7 +6,7 @@ import pandas as pd
 from copy import deepcopy
 
 doc = """
-Your app description
+Random Price Mechanism 
 """
 
 
@@ -14,6 +14,12 @@ class C(BaseConstants):
     NAME_IN_URL = 'WPT_contract'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
+
+'''
+********************************************************************************************************************************************************
+Functions used in the experiment: in total 3 functions 
+********************************************************************************************************************************************************
+'''
 
 
 def creating_session(subsession):
@@ -40,40 +46,43 @@ def creating_session(subsession):
             print('exception: ', player.first_vignette)
     return
 
+def orderResult(group):
 
-
-### compare random price with the willingness to pay and see if the contract is concluded
-def contract_conclusion(group):
-    import random
-    random_price = round(random.uniform(0.01, 5), 2)
     contractPayoffRelevant = random.choice(['expectation', 'specific'])
+    random_price = round(random.uniform(0.01, 5), 2)
+
+    WTP_specific = np.array([])
+    WTP_expection = np.array([])
+
     for player in group.get_players():
-        player.payoffRelevantContract = contractPayoffRelevant
         player.randomPrice = random_price
-        if player.contract1Type == contractPayoffRelevant:
+        player.payoffRelevantContract = contractPayoffRelevant
+        if player.contract1Type == player.payoffRelevantContract:
             player.WTP_forChosenContract = player.WTP_contract1
-            if player.WTP_contract1 >= random_price:
-                player.TradeResult = "success"
-            elif player.WTP_contract1 < random_price:
-                player.TradeResult = "fail"
-            else:
-                raise ValueError("There is problem in TradeResult variable")
-        elif player.contract2Type == contractPayoffRelevant:
+        elif player.contract2Type == player.payoffRelevantContract:
             player.WTP_forChosenContract = player.WTP_contract2
-            if player.WTP_contract1 >= random_price:
-                player.TradeResult = "success"
-            elif player.WTP_contract1 < random_price:
-                player.TradeResult = "fail"
-            else:
-                raise ValueError("There is problem in TradeResult variable")
-    return
+        else:
+            raise ValueError("There is a problem with WTP for chosen contract")
 
+        # Assign the variable WTP_forChosenContract for the next step
+        if player.contract1Type == player.payoffRelevantContract:
+            player.WTP_forChosenContract = player.WTP_contract1
+        elif player.contract2Type == player.payoffRelevantContract:
+            player.WTP_forChosenContract = player.WTP_contract2
+        else:
+            raise ValueError("There is a problem with WTP for chosen contract")
 
-def contract_performance(group):
-    for player in group.get_players():
-        contract_peformance_options = ['performed', 'breach']
+        # Check if the contract is failed/success assigning it to TradeResult variable
+        if player.WTP_forChosenContract >= player.randomPrice:
+            player.TradeResult = "success"
+        elif player.WTP_forChosenContract < player.randomPrice:
+            player.TradeResult = "fail"
+        else:
+            raise ValueError("There is problem in TradeResult variable")
+
+        # choosing if the contract can be performed or not
         probabilities = [0.75, 0.25]
-        player_chosen_contract_peformance = random.choices(contract_peformance_options, weights=probabilities, k=1)[0]
+        player_chosen_contract_peformance = random.choices(['performed', 'breach'], weights=probabilities, k=1)[0]
         if player.TradeResult == "success":
             player.contractPerformance = player_chosen_contract_peformance
         elif player.TradeResult == "fail":
@@ -81,26 +90,11 @@ def contract_performance(group):
         else:
             raise ValueError("There is problem in contractPerformance variable")
 
-    return
-
-
-
-def avgcal(group):
-    import numpy as np
-
-    WTP_specific = np.array([])
-    WTP_expection = np.array([])
-    for player in group.get_players():
+        # get WTP and add it to an array to measure mean for damage payment
         if player.contract1Type == "specific":
             WTP_specific = np.append(WTP_specific, player.WTP_contract1)
         elif player.contract1Type == "expectation":
             WTP_expection = np.append(WTP_expection, player.WTP_contract1)
-
-    for player in group.get_players():
-        if player.contract1Type == "specific":
-            WTP_specific = np.append(WTP_specific, player.WTP_contract2)
-        elif player.contract1Type == "expectation":
-            WTP_expection = np.append(WTP_expection, player.WTP_contract2)
 
     for player in group.get_players():
         player.avgSpecific = WTP_specific.mean()
@@ -108,18 +102,13 @@ def avgcal(group):
 
     return
 
-
-
-
-
 def payoffCal(subsession):
     for player in subsession.get_players():
-
         if player.payoffRelevantContract == "specific":
-            if (player.TradeResult == "fail"):
+            if player.TradeResult == "fail":
                 pass
-            elif (player.TradeResult == "success"):
-                player.payOff =  player.payOff - player.randomPrice
+            elif player.TradeResult == "success":
+                player.payOff = player.payOff - player.randomPrice
         elif player.payoffRelevantContract == "expectation":
             if player.TradeResult == "fail":
                 pass
@@ -132,8 +121,15 @@ def payoffCal(subsession):
         else:
             raise ValueError("There is problem in payoffRelevantContract")
 
+
     return
 
+
+'''
+********************************************************************************************************************************************************
+define variables for different levels 
+********************************************************************************************************************************************************
+'''
 
 
 class Subsession(BaseSubsession):
@@ -342,11 +338,25 @@ class C5_2_bonnChoice(Page):
     form_model = 'player'
     form_fields = ['choiceUni']
     @staticmethod
+    def error_message(player, values):
+        if len(values['choiceUni']) < 50:
+            message_error = ""
+            return "Ihre Antwort erfüllt nicht die Mindestanzahl an Zeichen. Bitte schreiben Sie mindestens 50 Zeichen."
+
+    @staticmethod
     def is_displayed(player):
         return True
 class C5_3_bonnMemory(Page):
     form_model = 'player'
     form_fields = ['memoryUni']
+
+
+    @staticmethod
+    def error_message(player, values):
+        if len(values['memoryUni']) < 50:
+            message_error = ""
+            return "Ihre Antwort erfüllt nicht die Mindestanzahl an Zeichen. Bitte schreiben Sie mindestens 50 Zeichen."
+
     @staticmethod
     def is_displayed(player):
         return True
@@ -361,36 +371,19 @@ class C6_contract2(Page):
     form_model = 'player'
     form_fields = ['WTP_contract2']
 
+
     @staticmethod
     def is_displayed(player):
         return True
 class C7_tradeResult(WaitPage):
     form_model = 'player'
-    form_fields = ['randomPrice', 'payoffRelevantContract', 'TradeResult']
-    after_all_players_arrive = 'contract_conclusion'
+    form_fields = ['randomPrice', 'payoffRelevantContract', 'TradeResult', 'WTP_forChosenContract']
+    after_all_players_arrive = orderResult
 
-
-    @staticmethod
-    def is_displayed(player):
-        return True
-class C7_1_tradeResult(WaitPage):
-    form_model = 'player'
-    form_fields = ['randomPrice', 'payoffRelevantContract', 'TradeResult']
-
-    after_all_players_arrive = 'contract_performance'
-    @staticmethod
-    def is_displayed(player):
-        return True
-class C7_2_tradeResult(WaitPage):
-    form_model = 'player'
-    form_fields = ['randomPrice', 'payoffRelevantContract', 'TradeResult']
-
-    after_all_players_arrive = 'avgcal'
     @staticmethod
     def is_displayed(player):
         return True
 class C8_contractResult(Page):
-
     @staticmethod
     def is_displayed(player):
         return True
@@ -398,7 +391,7 @@ class C9_contractPerform(Page):
 
     @staticmethod
     def is_displayed(player):
-        return True
+        return player.TradeResult == "success"
 class C10_demographics(Page):
     form_model = 'player'
     form_fields = [
@@ -416,10 +409,10 @@ class C10_demographics(Page):
     @staticmethod
     def is_displayed(player):
         return True
-class C11_WaitForSavingResults(WaitPage):
+class C11_WaitForPayOff(WaitPage):
     wait_for_all_groups = True
-    after_all_players_arrive = 'payoffCal'
-
+    after_all_players_arrive = payoffCal
+    @staticmethod
     def is_displayed(player):
         return True
 class C12_resultPage(Page):
@@ -436,6 +429,6 @@ page_sequence = [ C1_introduction,
                   C2_mainDecision, C3_mechanism, C4_examples, C5_1_controlQuestions,
                   C5_2_bonnChoice, C5_3_bonnMemory,
                   C6_contract1, C6_contract2,
-                  C7_tradeResult, C7_1_tradeResult, C7_2_tradeResult, C8_contractResult, C9_contractPerform,
+                  C7_tradeResult,  C8_contractResult, C9_contractPerform,
                   C10_demographics,
-                  C11_WaitForSavingResults, C12_resultPage, C13_Final_Page]
+                  C11_WaitForPayOff, C12_resultPage, C13_Final_Page]
