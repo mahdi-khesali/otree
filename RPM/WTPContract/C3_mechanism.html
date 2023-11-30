@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <h3 class="card-title font-weight-bold"> MECHANISMUS ZUM ABSCHLUSS DES KAUFVERTRAGS  </h3>
+<p>Der potenzielle Abschluss des Kaufvertrags für einen Becher erfolgt nachfolgendem Mechanismus:</p>
+
+<ol>
+  <li>Es gibt zwei Arten von Verträgen, nach denen die Becher verkauft werden. Einer der beiden kann zufällig ausgewählt werden.
+      Sie können nicht beeinflussen, welcher Vertragstyp verwendet wird.</li>
+  <li>Bitte geben Sie Ihre maximale Zahlungsbereitschaft für jeden Vertragstyp an.
+      Ihre Zahlungsbereitschaft muss zwischen 0 Euro und 5 Euro liegen und Sie können jeden Betrag in 50 Cent in diesem Intervall wählen.</li>
+  <li>Der Preis des Bechers wird zufällig festgelegt. Dieser Preis ist für alle Teilnehmer gleich und
+      unabhängig vom Vertragstyp. Der Preis kann zwischen 0 Euro und 5 Euro liegen und jeder Betrag in 50 Cent ist
+      gleich wahrscheinlich.</li>
+    <li>Einer der Verträge wird zufällig ausgewählt, um zahlungswirksam zu sein, und Sie erfahren erst nach
+        Ihren Entscheidungen, welcher es ist. Beide Vertragstypen haben die gleiche Chance, ausgewählt zu werden.
+        Somit erhalten Sie höchstens einen Becher. Der gleiche Vertragstyp ist für alle Teilnehmer zahlungswirksam.</li>
+    <li>Wenn Ihre angegebene maximale Zahlungsbereitschaft für den ausgewählten Vertrag mindestens so hoch ist wie der
+        zufällig ermittelte Preis, kommt ein Vertrag mit dem Geschäft zustande, Sie können einen Becher erhalten und
+        der Preis wird von den 12,50 Euro, mit denen Sie ausgestattet wurden, abgezogen. Wenn Ihre angegebene maximale
+        Zahlungsbereitschaft niedriger ist als der zufällig ermittelte Preis, kommt kein Vertrag zwischen Ihnen und dem
+        Geschäft zustande, erhalten Sie keinen Becher und Sie zahlen nichts, somit behalten Sie Ihre 12,50 Euro.</li>
+</ol>
+
+<p>Bitte beachten Sie, dass Sie mit Ihrer angegebenen Zahlungsbereitschaft den Preis des Bechers nicht beeinflussen
+    können, sondern nur, ob Sie den Vertrag abschließen werden. Daher repräsentiert Ihre Zahlungsbereitschaft für
+    jeden Vertragstyp, wie viel Sie höchstens für den jeweiligen Vertrag bezahlen würden.</p>
+
+    {% next_button %}
+
+
+{% endblock %}

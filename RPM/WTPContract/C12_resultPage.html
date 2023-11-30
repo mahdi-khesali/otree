@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<p>The contract that is chosen to be payoff relevant {{ player.payoffRelevantContract }}</p>
+<p>You expressed {{ player.WTP_forChosenContract }} for {{ player.payoffRelevantContract }}</p>
+<p>The random price that is drawn is {{ player.randomPrice }}</p>
+<p>The result of contract conclusion {{ player.TradeResult }}</p>
+<p>Your final Payoff is {{ player.payOff }}</p>
+
+
+{% endblock %}

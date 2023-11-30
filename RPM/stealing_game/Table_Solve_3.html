@@ -1,0 +1,114 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  padding-left: 30px;
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+    </style>
+
+</head>
+
+{% block title %}
+Aufgabe 3 von 3
+{% endblock %}
+
+
+
+{% block content %}
+
+{% if tries > 1 %}
+    <h4>Tabelle 3: Verbleibende Versuche: {{ tries }} </h4>
+    <br>
+    <b>Hinweise</b>: <p>Ihre eingereichte Antwort wird nicht automatisch entfernt. Sie müssen sie selbst entfernen.</p>>
+{% endif %}
+{% if tries == 1 %}
+    <h4>Tabelle 3: Verbleibende Versuch: {{ tries }} </h4>
+    <br>
+    <b>Hinweise</b>: <p>Ihre eingereichte Antwort wird nicht automatisch entfernt. Sie müssen sie selbst entfernen.</p>
+{% endif %}
+
+<body>
+
+<div class="row">
+    <div class="column left" style="float: left; padding: 10px; width: 50%;">
+        <!--    (Table here)-->
+        <table border="1" cellpadding="5" cellspacing="5" width="100%">
+            {% for items in table %}
+            <tr>
+                {% for item in items %}
+                {% if item == 0 %}
+
+                    <td style="text-align: center;">
+                            <font color = white>0</font>{{ item }}<font color = white>1</font>
+                    </td>
+                {% endif %}
+                {% if item == 1 %}
+
+                    <td style="text-align: center;">
+                            <font color = white>1</font>{{ item }}<font color = white>0</font>
+                    </td>
+                {% endif %}
+
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="column right" style="float: left; padding: 20px; width: 50%;">
+
+        {% formfield player.ans label='Bitte tragen Sie die Anzahl der Nullen in der Tabelle in das Eingabefeld ein.'%}
+        <b>Hinweise</b>: <p>Die Antwort wird nicht automatisch gelöscht werden. Sie müssen sie selbst löschen.</p>
+
+        <button name="Submit" class="btn-primary btn next">Ok</button>
+    </div>
+</div>
+
+<div class="column left" style="float: left; padding: 10px; width: 50%;">
+        <!--    (Table here)-->
+        <table border="0" cellpadding="5" cellspacing="5" width="100%">
+            {% for i in n_white_zeros %}
+            <tr>
+                {% for j in n_white_zeros %}
+                <td style="text-align: center; color: #fff;     ">0</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

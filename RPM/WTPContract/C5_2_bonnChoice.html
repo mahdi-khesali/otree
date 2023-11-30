@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    <h3 class="card-title font-weight-bold"> Bonn Choice</h3>
+<p>Please tell us the reason that you chose the University of Bonn.</p>
+
+{% formfield player.choiceUni %}
+
+
+
+    {% next_button %}
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+
+{% if player.contractPerformance == "performed" %}
+
+
+    <h3 class="card-title font-weight-bold"> CONTRACT Performed</h3>
+<p>The result of contract performance is {{player.contractPerformance}}</p>
+<p>The contract that is payoff relevant is {{ player.payoffRelevantContract }}</p>
+<p>The contract that is chosen to be payoff relevant {{player.payoffRelevantContract}}</p>
+
+
+{% endif %}
+
+{% if player.contractPerformance == "breach" %}
+
+
+    <h3 class="card-title font-weight-bold"> CONTRACT Broken</h3>
+<p>The result of contract performance is {{player.contractPerformance}}</p>
+<p>The contract that is payoff relevant is {{ player.payoffRelevantContract }}</p>
+<p>The contract that is chosen to be payoff relevant {{player.payoffRelevantContract}}</p>
+
+
+{% endif %}
+
+
+{% if player.contractPerformance == "notrelevant" %}
+
+
+    <h3 class="card-title font-weight-bold"> CONTRACT Fails</h3>
+<p>Your order was failed to be placed. Please wait for others</p>
+
+
+
+{% endif %}
+
+
+
+    {% next_button %}
+
+
+
+{% endblock %}

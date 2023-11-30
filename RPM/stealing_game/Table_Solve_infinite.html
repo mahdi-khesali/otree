@@ -1,0 +1,125 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Phase 1
+{% endblock %}
+
+{% block content %}
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+
+table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  padding-left: 30px;
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+    </style>
+
+
+</head>
+
+<h4>Richtige Tabellen: {{n_table_correct}}</h4>
+<br>
+
+{% if tries > 1 %}
+    <h4>Tabelle {{player.count_tables_seen}}: Verbleibende Versuche: {{ tries }} </h4>
+    <br>
+    <b>Hinweise</b>: <p>Ihre eingereichte Antwort wird nicht automatisch entfernt. Sie müssen sie selbst entfernen.</p>>
+{% endif %}
+{% if tries == 1 %}
+    <h4>Tabelle {{player.count_tables_seen}}: Verbleibende Versuch: {{ tries }} </h4>
+    <br>
+    <b>Hinweise</b>: <p>Ihre eingereichte Antwort wird nicht automatisch entfernt. Sie müssen sie selbst entfernen.</p>>
+{% endif %}
+
+<br>
+
+<body>
+
+
+<div class="row">
+    <div class="column left" style="float: left; padding: 10px; width: 50%;">
+        <!--    (Table here)-->
+        <table cellpadding="5" cellspacing="5" width="100%" border='1'>
+
+            {% for items in table %}
+            <tr  border='1'>
+                {% for item in items %}
+
+                    <td style="text-align: center;" border='1'>
+                            {{ item }}
+                    </td>
+
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="column right" style="float: left; padding: 20px; width: 50%;">
+
+        {% formfield player.ans label='Bitte tragen Sie die Anzahl der Nullen in der Tabelle in das Eingabefeld ein.'%}
+
+        <button name="Submit" class="btn-primary btn next">Ok</button>
+
+        <!--<button type="button"> Submit </button>-->
+    </div>
+
+    <div class="column left" style="float: left; padding: 10px; width: 50%;">
+        <!--    (Table here)-->
+        <table border="0" cellpadding="5" cellspacing="5" width="100%" bordercolor="#fff">
+            {% for i in n_white_zeros %}
+            <tr>
+                {% for j in n_white_zeros %}
+                <td style="text-align: center; color: #fff;     ">0</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+
+</div>
+
+</body>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
